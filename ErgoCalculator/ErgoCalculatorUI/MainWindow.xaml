@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ErgoCalculatorUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Width="1280" Height="720">
+
+    <DockPanel Background="AliceBlue">
+        <ListView DockPanel.Dock="Right" Width="240">
+            
+        </ListView>
+        <TextBox DockPanel.Dock="Top" Height="120" Text="2+2=4 - 1 = 3 Quick Maths!" FontSize="48">
+        </TextBox>
+        <Grid Background="AntiqueWhite" Grid.Row="3" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Background="SaddleBrown" Grid.Row="0" Grid.Column="0"></Grid>
+            <Grid Background="Aqua" Grid.Row="0" Grid.Column="1"></Grid>
+            <Grid Background="Yellow" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"></Grid>
+            <Grid Background="Green" Grid.Row="1" Grid.Column="1"></Grid>
+            <Grid Background="Brown" Grid.Row="2" Grid.Column="2"></Grid>
+        </Grid>
+    </DockPanel>
 </Window>
