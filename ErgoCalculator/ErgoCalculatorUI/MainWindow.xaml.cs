@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ErgoCalculatorUI.Calculator;
+using System.Collections.ObjectModel;
 
 namespace ErgoCalculatorUI
 {
@@ -23,9 +24,9 @@ namespace ErgoCalculatorUI
     
     public partial class MainWindow : Window
     {
-        List<String> calculation = new List<String>();
-        AngleMode currentAngleMode = AngleMode.RAD;
-        ShuntingYardParser parser = new ShuntingYardParser();
+        private List<String> calculation = new List<String>();
+        private ObservableCollection<CalculatorExpression> pastCalculations = new ObservableCollection<CalculatorExpression>();
+        private double lastResult = 0;
 
         public MainWindow()
         {
@@ -39,7 +40,8 @@ namespace ErgoCalculatorUI
             btnAC.Click -= Btn_Click;
             btnEquals.Click -= Btn_Click;
 
-            btnDegRad.Content = Enum.GetName(typeof(AngleMode), currentAngleMode);
+            btnDegRad.Content = Enum.GetName(typeof(AngleMode), ExpressionEvaluator.AngleMode);
+            listViewCalculationHistory.ItemsSource = pastCalculations;
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
@@ -50,10 +52,10 @@ namespace ErgoCalculatorUI
 
         private void btnDegRad_Click(object sender, RoutedEventArgs e)
         {
-            int nextMode = ((int)currentAngleMode + 1) % Enum.GetValues(typeof(AngleMode)).Length;
-            currentAngleMode = (AngleMode)nextMode;
-            Enum.GetName(typeof(AngleMode), currentAngleMode);
-            btnDegRad.Content = Enum.GetName(typeof(AngleMode), currentAngleMode);
+            int nextMode = ((int)ExpressionEvaluator.AngleMode + 1) % Enum.GetValues(typeof(AngleMode)).Length;
+            ExpressionEvaluator.AngleMode = (AngleMode)nextMode;
+            Enum.GetName(typeof(AngleMode), ExpressionEvaluator.AngleMode);
+            btnDegRad.Content = Enum.GetName(typeof(AngleMode), ExpressionEvaluator.AngleMode);
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
@@ -74,25 +76,45 @@ namespace ErgoCalculatorUI
                     if (preParse.Count == pos) preParse.Add(token);
                     else preParse[pos] += token;
                 }
-                else if (token == ",")
-                {
-                    preParse[pos] += ".";
-                }
                 else
                 {
-                    preParse.Add(token);
+                    switch (token)
+                    {
+                        case "ANS":
+                            preParse.Add(lastResult.ToString().Replace(",", "."));
+                            break;
+                        case "EXP":
+                            preParse.Add("*10^");
+                            break;
+                        case "𝞹":
+                            preParse.Add(Math.PI.ToString().Replace(",", "."));
+                            break;
+                        case "×":
+                            preParse.Add("*");
+                            break;
+                        case "÷":
+                            preParse.Add("/");
+                            break;
+                        case ",":
+                            preParse.Add(".");
+                            break;
+                        default:
+                            preParse.Add(token);
+                            break;
+                    }
+
                     pos = preParse.Count;
                 }
             }
+            var parsedOutputString = string.Join("", preParse.ToArray());
+            var expression = new org.mariuszgromada.math.mxparser.Expression(parsedOutputString);
+            double result = ExpressionEvaluator.EvaluateStringExpression(parsedOutputString);
+            lastResult = result;
 
-            string[] parsedOutput = parser.Parse(preParse.ToArray());
-            decimal result = RPNEvaluator.Evaluate(string.Join(" ", parsedOutput));
-
-            // TODO: save in history
+            pastCalculations.Add(new CalculatorExpression { Calculation = calculation.ToArray() });
             calculation.Clear();
             calculation.Add(result.ToString());
             UpdateCalculationText();
-
         }
 
         private void btnAC_Click(object sender, RoutedEventArgs e)
