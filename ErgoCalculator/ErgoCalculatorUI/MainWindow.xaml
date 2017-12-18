@@ -3,15 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ErgoCalculatorUI"
+        xmlns:self="clr-namespace:ErgoCalculatorUI"
         mc:Ignorable="d"
-        Title="MainWindow" Width="1280" Height="720">
+        Title="ErgoCalc" Width="1280" Height="720">
 
     <Window.Resources>
         <ResourceDictionary Source="Resources/StyleDictionary.xaml" />
     </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="self:CustomCommands.Exit" Executed="ExitCommand_Executed"/>
+        <CommandBinding Command="self:CustomCommands.FocusOperators" Executed="FocusOperatorsCommand_Executed" />
+        <CommandBinding Command="self:CustomCommands.FocusNumpad" Executed="FocusNumpadCommand_Executed" />
+    </Window.CommandBindings>
     
-    <DockPanel Background="AliceBlue">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Datei">
+                <MenuItem Command="self:CustomCommands.Exit" />
+            </MenuItem>
+            <MenuItem Header="Aktionen">
+                <MenuItem Command="self:CustomCommands.FocusNumpad" />
+                <MenuItem Command="self:CustomCommands.FocusOperators" />
+            </MenuItem>
+        </Menu>
+        <DockPanel Background="AliceBlue" Grid.Row="1">
         <DockPanel DockPanel.Dock="Right" Width="300" LastChildFill="True">
         
             <Grid DockPanel.Dock="Bottom" Height="80" VerticalAlignment="Bottom">
@@ -21,8 +42,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Button AutomationProperties.Name="Gradmaß Bogenmaß Umschalter" x:Name="btnDegRad" Content="DEG" Click="btnDegRad_Click"></Button>
-                <Button AutomationProperties.Name="Einstellungen" x:Name="btnSettings" Content="..." Grid.Column="1" Click="btnSettings_Click"></Button>
-            </Grid>
+                    <Button AutomationProperties.Name="Einstellungen" x:Name="btnSettings" Content="..." Grid.Column="1" Click="btnSettings_Click"></Button>
+                </Grid>
 
             <ListView x:Name="listViewCalculationHistory" AutomationProperties.Name="Rechenhistorie" DockPanel.Dock="Top">
             </ListView>
@@ -93,7 +114,7 @@
         <Button Grid.Row="1" Grid.Column="0" TabIndex="4" Content="4"/>
         <Button Grid.Row="1" Grid.Column="1" TabIndex="5" Content="5"/>
         <Button Grid.Row="1" Grid.Column="2" TabIndex="6" Content="6"/>
-        <Button Grid.Row="2" Grid.Column="0" TabIndex="1" Content="1"/>
+        <Button x:Name="btnNumpad1" Grid.Row="2" Grid.Column="0" TabIndex="1" Content="1"/>
         <Button Grid.Row="2" Grid.Column="1" TabIndex="2" Content="2"/>
         <Button Grid.Row="2" Grid.Column="2" TabIndex="3" Content="3"/>
         <Button AutomationProperties.Name="Mal Zehn Hoch" Grid.Row="3" Grid.Column="0" TabIndex="12" Content="EXP"/>
@@ -127,7 +148,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-        <Button AutomationProperties.Name="Addieren Operator" Grid.Row="0" Grid.Column="0" Content="+"/>
+        <Button x:Name="btnPlus" AutomationProperties.Name="Addieren Operator" Grid.Row="0" Grid.Column="0" Content="+"/>
         <Button AutomationProperties.Name="Subtrahieren Operator" Grid.Row="0" Grid.Column="1" Content="-"/>
         <Button AutomationProperties.Name="Letzes Ergebnis" Grid.Row="0" Grid.Column="2" Content="ANS"/>
         <Button AutomationProperties.Name="Multiplizieren Operator" Grid.Row="1" Grid.Column="0" Content="×"/>
@@ -136,4 +157,5 @@
       </Grid>
         </Grid>
     </DockPanel>
+    </Grid>
 </Window>

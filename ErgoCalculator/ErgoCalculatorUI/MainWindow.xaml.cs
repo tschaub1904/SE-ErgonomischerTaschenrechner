@@ -47,6 +47,7 @@ namespace ErgoCalculatorUI
             listViewCalculationHistory.KeyDown += ListViewCalculationHistory_KeyDown;
         }
 
+        #region listViewHistoryControls
         private void ListViewCalculationHistory_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter)
@@ -54,7 +55,6 @@ namespace ErgoCalculatorUI
 
             HistoryItemToCalculation();
         }
-
         private void ListViewCalculationHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             HistoryItemToCalculation();
@@ -68,6 +68,7 @@ namespace ErgoCalculatorUI
             calculation = ((CalculatorExpression)listViewCalculationHistory.SelectedItem).Calculation.ToList<string>();
             UpdateCalculationText();
         }
+        #endregion
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -126,7 +127,6 @@ namespace ErgoCalculatorUI
                             preParse.Add(token);
                             break;
                     }
-                    
                 }
                 pos = preParse.Count;
             }
@@ -190,5 +190,54 @@ namespace ErgoCalculatorUI
                 }
             }
         }
+
+        private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void FocusOperatorsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnPlus.Focus();
+        }
+        private void FocusNumpadCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnNumpad1.Focus();
+        }
+    }
+
+    public static class CustomCommands
+    {
+        public static readonly RoutedUICommand Exit = new RoutedUICommand
+        (
+            "Exit",
+            "Exit",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                    new KeyGesture(Key.Q, ModifierKeys.Control)
+            }
+        );
+
+        public static readonly RoutedUICommand FocusOperators = new RoutedUICommand
+        (
+            "Operatoren Fokussieren",
+            "Operatoren Fokussieren",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.NumPad2, ModifierKeys.Control)
+            }
+        );
+        public static readonly RoutedUICommand FocusNumpad = new RoutedUICommand
+        (
+            "Ziffernblock Fokussieren",
+            "Ziffernblock Fokussieren",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.NumPad1, ModifierKeys.Control)
+            }
+        );
+
     }
 }
