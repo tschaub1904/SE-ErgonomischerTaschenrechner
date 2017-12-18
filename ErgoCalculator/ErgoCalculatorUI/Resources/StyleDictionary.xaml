@@ -6,7 +6,18 @@
         <Setter Property="Background" Value="Black" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="TextElement.Foreground" Value="Orange" />
+<<<<<<< Updated upstream
         <Setter Property="FontSize" Value="32" />
+=======
+        <Setter Property="FontSize" Value="40" />
+        <Setter Property="Margin" Value="2" />
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="DimGray" />
+                <Setter Property="TextElement.Foreground" Value="Cyan" />
+            </Trigger>
+        </Style.Triggers>
+>>>>>>> Stashed changes
     </Style>
 
     <Style TargetType="TextBox">

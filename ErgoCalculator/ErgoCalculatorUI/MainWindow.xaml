@@ -10,8 +10,43 @@
     <Window.Resources>
         <ResourceDictionary Source="Resources/StyleDictionary.xaml" />
     </Window.Resources>
+<<<<<<< Updated upstream
     
     <DockPanel Background="AliceBlue">
+=======
+
+    <Window.CommandBindings>
+        <CommandBinding Command="self:CustomCommands.Exit" Executed="ExitCommand_Executed"/>
+        <CommandBinding Command="self:CustomCommands.FocusOperators" Executed="FocusOperatorsCommand_Executed" />
+        <CommandBinding Command="self:CustomCommands.FocusNumpad" Executed="FocusNumpadCommand_Executed" />
+        <CommandBinding Command="self:CustomCommands.FocusTrigonometrics" Executed="FocusTrigonometricsCommand_Executed" />
+        <CommandBinding Command="self:CustomCommands.FocusExponents" Executed="FocusExponentsCommand_Executed" />
+        <CommandBinding Command="self:CustomCommands.FocusExtras" Executed="FocusExtrasCommand_Executed" />
+        <CommandBinding Command="self:CustomCommands.CalculateCommand" Executed="CalculateCommand_Executed" />
+    </Window.CommandBindings>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Datei">
+                <MenuItem Command="self:CustomCommands.Exit" />
+            </MenuItem>
+            <MenuItem Header="Aktionen">
+                <MenuItem Command="self:CustomCommands.CalculateCommand" />
+                <Separator/>
+                <MenuItem Command="self:CustomCommands.FocusNumpad" />
+                <MenuItem Command="self:CustomCommands.FocusOperators" />
+                <MenuItem Command="self:CustomCommands.FocusTrigonometrics" />
+                <MenuItem Command="self:CustomCommands.FocusExponents" />
+                <MenuItem Command="self:CustomCommands.FocusExtras" />
+            </MenuItem>
+        </Menu>
+        <DockPanel Background="AliceBlue" Grid.Row="1">
+>>>>>>> Stashed changes
         <DockPanel DockPanel.Dock="Right" Width="300" LastChildFill="True">
         
             <Grid DockPanel.Dock="Bottom" Height="80" VerticalAlignment="Bottom">
@@ -50,12 +85,12 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-        <Button AutomationProperties.Name="x Quadrat" Grid.Row="0" Grid.Column="0" Content="x²"/>
-        <Button AutomationProperties.Name="Exponent" Grid.Row="0" Grid.Column="1" Content="^"/>
-        <Button AutomationProperties.Name="Natürlicher Logarithmus" Grid.Row="0" Grid.Column="2" Content="ln"/>
-        <Button AutomationProperties.Name="Wurzel von x" Grid.Row="1" Grid.Column="0" Content="√x"/>
-        <Button AutomationProperties.Name="Wurzel Klammer auf" Grid.Row="1" Grid.Column="1" Content="sqrt("/>
-        <Button AutomationProperties.Name="Zehner Logarithmus" Grid.Row="1" Grid.Column="2" Content="log"/>
+        <Button x:Name="btnPow2" AutomationProperties.Name="x Quadrat" Grid.Row="0" Grid.Column="0" Content="^2"/>
+        <Button AutomationProperties.Name="x hoch y" Grid.Row="0" Grid.Column="1" Content="^"/>
+        <Button AutomationProperties.Name="Quadratwurzel von" Grid.Row="0" Grid.Column="2" Content="sqrt("/>
+        <Button AutomationProperties.Name="Logarithmus Naturalis" Grid.Row="1" Grid.Column="0" Content="ln("/>
+        <Button AutomationProperties.Name="Logarithmus Basis 2" Grid.Row="1" Grid.Column="1" Content="log2("/>
+        <Button AutomationProperties.Name="Logarithmus Basis 10" Grid.Row="1" Grid.Column="2" Content="log10("/>
 
       </Grid>
             <Grid Background="DarkBlue" Grid.Row="0" Grid.Column="1">
@@ -68,12 +103,12 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-        <Button AutomationProperties.Name="Sinus" Grid.Row="0" Grid.Column="0" Content="sin"/>
-        <Button AutomationProperties.Name="Kosinus" Grid.Row="0" Grid.Column="1" Content="cos"/>
-        <Button AutomationProperties.Name="Tangens" Grid.Row="0" Grid.Column="2" Content="tan"/>
-        <Button AutomationProperties.Name="Arcus Sinus" Grid.Row="1" Grid.Column="0" Content="arcsin"/>
-        <Button AutomationProperties.Name="Arcus Kosinus" Grid.Row="1" Grid.Column="1" Content="arccos"/>
-        <Button AutomationProperties.Name="Arcus Tangens" Grid.Row="1" Grid.Column="2" Content="arctan"/>
+        <Button x:Name="btnSin" AutomationProperties.Name="Sinus" Grid.Row="0" Grid.Column="0" Content="sin("/>
+        <Button AutomationProperties.Name="Kosinus" Grid.Row="0" Grid.Column="1" Content="cos("/>
+        <Button AutomationProperties.Name="Tangens" Grid.Row="0" Grid.Column="2" Content="tan("/>
+        <Button AutomationProperties.Name="Arcus Sinus" Grid.Row="1" Grid.Column="0" Content="arcsin("/>
+        <Button AutomationProperties.Name="Arcus Kosinus" Grid.Row="1" Grid.Column="1" Content="arccos("/>
+        <Button AutomationProperties.Name="Arcus Tangens" Grid.Row="1" Grid.Column="2" Content="arctan("/>
       </Grid>
             <Grid Background="Yellow" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
@@ -110,7 +145,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-        <Button AutomationProperties.Name="Klammer auf" Grid.Row="0" Grid.Column="0" Content="("/>
+        <Button x:Name="btnOpenParanthesis" AutomationProperties.Name="Klammer auf" Grid.Row="0" Grid.Column="0" Content="("/>
         <Button AutomationProperties.Name="Klammer zu" Grid.Row="0" Grid.Column="1" Content=")"/>
         <Button AutomationProperties.Name="Löschen" x:Name="btnDEL" Grid.Row="0" Grid.Column="2" Content="DEL" Click="btnDEL_Click"/>
         <Button AutomationProperties.Name="eulerische Zahl" Grid.Row="1" Grid.Column="0" Content="e"/>

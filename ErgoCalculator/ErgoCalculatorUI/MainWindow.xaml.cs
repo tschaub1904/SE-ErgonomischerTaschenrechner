@@ -65,6 +65,11 @@ namespace ErgoCalculatorUI
 
         private void btnEquals_Click(object sender, RoutedEventArgs e)
         {
+            Calculate();
+        }
+
+        private void Calculate()
+        {
             // Parse String to calculate
             List<string> preParse = new List<string>();
             int pos = 0;
@@ -115,6 +120,7 @@ namespace ErgoCalculatorUI
             calculation.Clear();
             calculation.Add(result.ToString());
             UpdateCalculationText();
+            txtCalculation.Focus();
         }
 
         private void btnAC_Click(object sender, RoutedEventArgs e)
@@ -165,5 +171,119 @@ namespace ErgoCalculatorUI
                 }
             }
         }
+<<<<<<< Updated upstream
+=======
+
+        private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void FocusOperatorsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnPlus.Focus();
+        }
+        private void FocusNumpadCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnNumpad1.Focus();
+        }
+        private void FocusTrigonometricsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnSin.Focus();
+        }
+        private void FocusExponentsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnPow2.Focus();
+        }
+
+        private void FocusExtrasCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnOpenParanthesis.Focus();
+        }
+        private void CalculateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Calculate();
+        }
+    }
+
+    public static class CustomCommands
+    {
+        public static readonly RoutedUICommand Exit = new RoutedUICommand
+        (
+            "Exit",
+            "Exit",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                    new KeyGesture(Key.Q, ModifierKeys.Control)
+            }
+        );
+
+        public static readonly RoutedUICommand FocusOperators = new RoutedUICommand
+        (
+            "Operatoren Fokussieren",
+            "Operatoren Fokussieren",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.O, ModifierKeys.Alt),
+                new KeyGesture(Key.NumPad2, ModifierKeys.Control)
+            }
+        );
+        public static readonly RoutedUICommand FocusNumpad = new RoutedUICommand
+        (
+            "Ziffernblock Fokussieren",
+            "Ziffernblock Fokussieren",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.Z, ModifierKeys.Alt),
+                new KeyGesture(Key.NumPad1, ModifierKeys.Control)
+                
+            }
+        );
+        public static readonly RoutedUICommand FocusExponents = new RoutedUICommand
+        (
+            "Exponenten Fokussieren",
+            "Exponenten Fokussieren",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.E, ModifierKeys.Alt),
+                new KeyGesture(Key.NumPad3, ModifierKeys.Control)
+            }
+        );
+        public static readonly RoutedUICommand FocusTrigonometrics = new RoutedUICommand
+        (
+            "Trigonometrische Funktionen Fokussieren",
+            "Trigonometrische Funktionen Fokussieren",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.T, ModifierKeys.Alt),
+                new KeyGesture(Key.NumPad4, ModifierKeys.Control)
+            }
+        );
+        public static readonly RoutedUICommand FocusExtras = new RoutedUICommand
+        (
+            "Sonderzeichen Fokussieren",
+            "Sonderzeichen Fokussieren",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.X, ModifierKeys.Alt),
+                new KeyGesture(Key.NumPad5, ModifierKeys.Control)
+            }
+        );
+        public static readonly RoutedUICommand CalculateCommand = new RoutedUICommand
+        (
+            "Berechnen",
+            "Berechnen",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.E, ModifierKeys.Control, "STRG + E")
+            }
+        );
+>>>>>>> Stashed changes
     }
 }
