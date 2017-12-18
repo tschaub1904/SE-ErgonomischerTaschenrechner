@@ -39,8 +39,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-           
-            <Grid Background="SaddleBrown" Grid.Row="0" Grid.Column="0">
+
+            <Grid Background="DarkBlue" Grid.Row="0" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -58,7 +58,7 @@
         <Button AutomationProperties.Name="Zehner Logarithmus" Grid.Row="1" Grid.Column="2" Content="log"/>
 
       </Grid>
-            <Grid Background="DarkBlue" Grid.Row="0" Grid.Column="1">
+            <Grid Background="SaddleBrown" Grid.Row="0" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -75,7 +75,7 @@
         <Button AutomationProperties.Name="Arcus Kosinus" Grid.Row="1" Grid.Column="1" Content="arccos"/>
         <Button AutomationProperties.Name="Arcus Tangens" Grid.Row="1" Grid.Column="2" Content="arctan"/>
       </Grid>
-            <Grid Background="Yellow" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
+            <Grid Background="Goldenrod" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -96,9 +96,9 @@
         <Button Grid.Row="2" Grid.Column="0" TabIndex="1" Content="1"/>
         <Button Grid.Row="2" Grid.Column="1" TabIndex="2" Content="2"/>
         <Button Grid.Row="2" Grid.Column="2" TabIndex="3" Content="3"/>
-        <Button AutomationProperties.Name="Mal Zehn Hoch" Grid.Row="3" Grid.Column="0" Content="EXP"/>
+        <Button AutomationProperties.Name="Mal Zehn Hoch" Grid.Row="3" Grid.Column="0" TabIndex="12" Content="EXP"/>
         <Button Grid.Row="3" Grid.Column="1" TabIndex="10" Content="0"/>
-        <Button AutomationProperties.Name="Komma" Grid.Row="3" Grid.Column="2" Content=","/>
+        <Button AutomationProperties.Name="Komma" Grid.Row="3" Grid.Column="2" TabIndex="11" Content=","/>
       </Grid>
             <Grid Background="Green" Grid.Row="1" Grid.Column="1">
                 <Grid.RowDefinitions>
