@@ -41,7 +41,32 @@ namespace ErgoCalculatorUI
             btnEquals.Click -= Btn_Click;
 
             btnDegRad.Content = Enum.GetName(typeof(AngleMode), ExpressionEvaluator.AngleMode);
+
             listViewCalculationHistory.ItemsSource = pastCalculations;
+            listViewCalculationHistory.MouseDoubleClick += ListViewCalculationHistory_MouseDoubleClick;
+            listViewCalculationHistory.KeyDown += ListViewCalculationHistory_KeyDown;
+        }
+
+        private void ListViewCalculationHistory_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter)
+                return;
+
+            HistoryItemToCalculation();
+        }
+
+        private void ListViewCalculationHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            HistoryItemToCalculation();
+        }
+
+        private void HistoryItemToCalculation()
+        {
+            if (listViewCalculationHistory.SelectedItem == null)
+                return;
+
+            calculation = ((CalculatorExpression)listViewCalculationHistory.SelectedItem).Calculation.ToList<string>();
+            UpdateCalculationText();
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)

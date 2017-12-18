@@ -7,6 +7,7 @@
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="TextElement.Foreground" Value="Orange" />
         <Setter Property="FontSize" Value="32" />
+        <Setter Property="Margin" Value="6" />
     </Style>
 
     <Style TargetType="TextBox">
