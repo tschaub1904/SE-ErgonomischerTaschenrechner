@@ -7,7 +7,7 @@
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="TextElement.Foreground" Value="Orange" />
         <Setter Property="FontSize" Value="40" />
-        <Setter Property="Margin" Value="6" />
+        <Setter Property="Margin" Value="4" />
         <Style.Triggers>
             <Trigger Property="IsFocused" Value="True">
                 <Setter Property="Background" Value="DimGray" />

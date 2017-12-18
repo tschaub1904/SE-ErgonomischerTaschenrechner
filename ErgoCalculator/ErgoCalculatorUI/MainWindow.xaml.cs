@@ -93,13 +93,12 @@ namespace ErgoCalculatorUI
             // Parse String to calculate
             List<string> preParse = new List<string>();
             int pos = 0;
-            int output;
+            double parsedToken = 0;
             foreach (var token in calculation)
             {
-                if (Int32.TryParse(token, out output))
+                if (double.TryParse(token, out parsedToken))
                 {
-                    if (preParse.Count == pos) preParse.Add(token);
-                    else preParse[pos] += token;
+                    preParse.Add(parsedToken.ToString().Replace(",", "."));
                 }
                 else
                 {
@@ -127,10 +126,11 @@ namespace ErgoCalculatorUI
                             preParse.Add(token);
                             break;
                     }
-
-                    pos = preParse.Count;
+                    
                 }
+                pos = preParse.Count;
             }
+
             var parsedOutputString = string.Join("", preParse.ToArray());
             var expression = new org.mariuszgromada.math.mxparser.Expression(parsedOutputString);
             double result = ExpressionEvaluator.EvaluateStringExpression(parsedOutputString);
