@@ -70,6 +70,95 @@ namespace ErgoCalculatorUI
         }
         #endregion
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Used for Direct Keyboard Input
+            if (
+                Keyboard.IsKeyDown(Key.LeftCtrl)
+                || Keyboard.IsKeyDown(Key.LeftAlt)
+                || Keyboard.IsKeyDown(Key.LeftShift)
+                )
+                return;
+
+            string keyContent = "";
+            switch (e.Key)
+            {
+                case Key.D0:
+                case Key.NumPad0:
+                    keyContent = "0";
+                    break;
+                case Key.D1:
+                case Key.NumPad1:
+                    keyContent = "1";
+                    break;
+                case Key.D2:
+                case Key.NumPad2:
+                    keyContent = "2";
+                    break;
+                case Key.D3:
+                case Key.NumPad3:
+                    keyContent = "3";
+                    break;
+                case Key.D4:
+                case Key.NumPad4:
+                    keyContent = "4";
+                    break;
+                case Key.D5:
+                case Key.NumPad5:
+                    keyContent = "5";
+                    break;
+                case Key.D6:
+                case Key.NumPad6:
+                    keyContent = "6";
+                    break;
+                case Key.D7:
+                case Key.NumPad7:
+                    keyContent = "7";
+                    break;
+                case Key.D8:
+                case Key.NumPad8:
+                    keyContent = "8";
+                    break;
+                case Key.D9:
+                case Key.NumPad9:
+                    keyContent = "9";
+                    break;
+                case Key.OemPlus:
+                case Key.Add:
+                    keyContent = "+";
+                    break;
+                case Key.OemMinus:
+                case Key.Subtract:
+                    keyContent = "-";
+                    break;
+                case Key.Multiply:
+                    keyContent = "×";
+                    break;
+                case Key.Divide:
+                    keyContent = "÷";
+                    break;
+                case Key.Decimal:
+                    keyContent = ",";
+                    break;
+                case Key.Back:
+                    if (calculation.Count > 0)
+                    {
+                        calculation.RemoveAt(calculation.Count - 1);
+                        UpdateCalculationText();
+                    }
+                    return;
+                case Key.Delete:
+                    calculation.Clear();
+                    UpdateCalculationText();
+                    return;
+                default:
+                    return;
+            }
+
+            calculation.Add(keyContent);
+            UpdateCalculationText();
+        }
+
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             calculation.Add(((Button)sender).Content.ToString());
@@ -114,7 +203,7 @@ namespace ErgoCalculatorUI
                             preParse.Add(lastResult.ToString().Replace(",", "."));
                             break;
                         case "EXP":
-                            preParse.Add("*10^");
+                            preParse.Add("E");
                             break;
                         case "𝞹":
                             preParse.Add(Math.PI.ToString().Replace(",", "."));
@@ -201,6 +290,10 @@ namespace ErgoCalculatorUI
         {
             Application.Current.Shutdown();
         }
+        private void FocusCalculationTextCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            txtCalculation.Focus();
+        }
         private void FocusOperatorsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             btnPlus.Focus();
@@ -209,28 +302,31 @@ namespace ErgoCalculatorUI
         {
             btnNumpad1.Focus();
         }
-    private void FocusTrigonometricsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        btnSin.Focus();
-    }
-    private void FocusExponentsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        btnPow2.Focus();
+        private void FocusTrigonometricsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnSin.Focus();
+        }
+        private void FocusExponentsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnPow2.Focus();
+        }
+
+        private void FocusExtrasCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnOpenParanthesis.Focus();
+        }
+        private void CalculateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Calculate();
+        }
+
+        private void NumpadInputCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Console.WriteLine(e.Parameter);
+        }
     }
 
-    private void FocusExtrasCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        btnOpenParanthesis.Focus();
-    }
-    private void CalculateCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        Calculate();
-    }
-
-
-}
-
-public static class CustomCommands
+    public static class CustomCommands
     {
         public static readonly RoutedUICommand Exit = new RoutedUICommand
         (
@@ -243,6 +339,16 @@ public static class CustomCommands
             }
         );
 
+        public static readonly RoutedUICommand FocusCalculationText = new RoutedUICommand
+        (
+            "Rechenzeile Fokussieren",
+            "Rechenzeile Fokussieren",
+            typeof(CustomCommands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.NumPad0, ModifierKeys.Control)
+            }
+        );
         public static readonly RoutedUICommand FocusOperators = new RoutedUICommand
         (
             "Operatoren Fokussieren",
@@ -306,7 +412,6 @@ public static class CustomCommands
             {
                 new KeyGesture(Key.E, ModifierKeys.Control, "STRG + E")
             }
-        );
-
+        );
     }
 }

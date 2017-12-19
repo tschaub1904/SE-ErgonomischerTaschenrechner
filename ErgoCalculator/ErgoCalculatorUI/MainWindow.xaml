@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:self="clr-namespace:ErgoCalculatorUI"
         mc:Ignorable="d"
-        Title="ErgoCalc" Width="1280" Height="720">
+        Title="ErgoCalc" Width="1280" Height="720"
+        KeyDown="Window_KeyDown">
 
     <Window.Resources>
         <ResourceDictionary Source="Resources/StyleDictionary.xaml" />
@@ -19,6 +20,7 @@
         <CommandBinding Command="self:CustomCommands.FocusExponents" Executed="FocusExponentsCommand_Executed" />
         <CommandBinding Command="self:CustomCommands.FocusExtras" Executed="FocusExtrasCommand_Executed" />
         <CommandBinding Command="self:CustomCommands.CalculateCommand" Executed="CalculateCommand_Executed" />
+        <CommandBinding Command="self:CustomCommands.FocusCalculationText" Executed="FocusCalculationTextCommand_Executed" />
     </Window.CommandBindings>
 
     <Grid>
