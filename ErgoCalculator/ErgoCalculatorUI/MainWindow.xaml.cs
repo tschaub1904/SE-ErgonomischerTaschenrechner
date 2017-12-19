@@ -28,6 +28,9 @@ namespace ErgoCalculatorUI
         private ObservableCollection<CalculatorExpression> pastCalculations = new ObservableCollection<CalculatorExpression>();
         private double lastResult = 0;
 
+        /// <summary>
+        /// Einstiegspunkt für das ErgoCalc Fenster
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -60,6 +63,9 @@ namespace ErgoCalculatorUI
             HistoryItemToCalculation();
         }
 
+        /// <summary>
+        /// Fügt das momentan ausgewählte Item der Historie der Rechenzeile hinzu.
+        /// </summary>
         private void HistoryItemToCalculation()
         {
             if (listViewCalculationHistory.SelectedItem == null)
@@ -72,7 +78,9 @@ namespace ErgoCalculatorUI
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            // Used for Direct Keyboard Input
+            /* Diese Funktion wird verwendet, um das Rechnen mithilfe des Ziffernblocks zu ermöglichen
+             * Hier werden Tastendrücke abgefangen und weiterverarbeitet
+             */
             if (
                 Keyboard.IsKeyDown(Key.LeftCtrl)
                 || Keyboard.IsKeyDown(Key.LeftAlt)
@@ -173,19 +181,17 @@ namespace ErgoCalculatorUI
             btnDegRad.Content = Enum.GetName(typeof(AngleMode), ExpressionEvaluator.AngleMode);
         }
 
-        private void btnSettings_Click(object sender, RoutedEventArgs e)
-        {
-            // Open Settings Window
-        }
-
         private void btnEquals_Click(object sender, RoutedEventArgs e)
         {
             Calculate();
         }
 
+        /// <summary>
+        /// Wandelt Sonderzeichen in der Rechenzeichenkette in für das Rechenframework lesbare ausdrücke um
+        /// und schickt den umgewandelten String weiter an den ExpressionEvaluator.
+        /// </summary>
         private void Calculate()
         {
-            // Parse String to calculate
             List<string> preParse = new List<string>();
             int pos = 0;
             double parsedToken = 0;
@@ -254,6 +260,9 @@ namespace ErgoCalculatorUI
             UpdateCalculationText();
         }
 
+        /// <summary>
+        /// Wandelt die Liste der Eingaben in eine Zeichenkette um und zeigt diese in der Rechenzeile an.
+        /// </summary>
         private void UpdateCalculationText()
         {
             StringBuilder sb = new StringBuilder();
@@ -266,6 +275,12 @@ namespace ErgoCalculatorUI
             txtCalculation.Text = sb.ToString();
         }
 
+        /// <summary>
+        /// Erstellt eine Liste aller Kindelemente eines ausgewählten Typs
+        /// </summary>
+        /// <typeparam name="T">Der zu findende Kindtyp</typeparam>
+        /// <param name="depObj">Das Elternelement</param>
+        /// <returns></returns>
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
@@ -286,6 +301,7 @@ namespace ErgoCalculatorUI
             }
         }
 
+        #region Executed Commands
         private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -319,19 +335,18 @@ namespace ErgoCalculatorUI
         {
             Calculate();
         }
-
-        private void NumpadInputCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            Console.WriteLine(e.Parameter);
-        }
+#endregion
     }
 
+    /// <summary>
+    /// Diese Statische Klasse enthält Kommandos, die von der ErgoCalcUI aus ausgelöst werden können
+    /// </summary>
     public static class CustomCommands
     {
         public static readonly RoutedUICommand Exit = new RoutedUICommand
         (
-            "Exit",
-            "Exit",
+            "Beenden",
+            "Beenden",
             typeof(CustomCommands),
             new InputGestureCollection()
             {
@@ -377,8 +392,8 @@ namespace ErgoCalculatorUI
             typeof(CustomCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.E, ModifierKeys.Alt),
-                new KeyGesture(Key.NumPad3, ModifierKeys.Control)
+                new KeyGesture(Key.NumPad3, ModifierKeys.Control),
+                new KeyGesture(Key.E, ModifierKeys.Alt)
             }
         );
         public static readonly RoutedUICommand FocusTrigonometrics = new RoutedUICommand
@@ -388,8 +403,8 @@ namespace ErgoCalculatorUI
             typeof(CustomCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.T, ModifierKeys.Alt),
-                new KeyGesture(Key.NumPad4, ModifierKeys.Control)
+                new KeyGesture(Key.NumPad4, ModifierKeys.Control),
+                new KeyGesture(Key.T, ModifierKeys.Alt)
             }
         );
         public static readonly RoutedUICommand FocusExtras = new RoutedUICommand
@@ -399,8 +414,8 @@ namespace ErgoCalculatorUI
             typeof(CustomCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.X, ModifierKeys.Alt),
-                new KeyGesture(Key.NumPad5, ModifierKeys.Control)
+                new KeyGesture(Key.NumPad5, ModifierKeys.Control),
+                new KeyGesture(Key.X, ModifierKeys.Alt)
             }
         );
         public static readonly RoutedUICommand CalculateCommand = new RoutedUICommand
@@ -410,7 +425,7 @@ namespace ErgoCalculatorUI
             typeof(CustomCommands),
             new InputGestureCollection()
             {
-                new KeyGesture(Key.E, ModifierKeys.Control, "STRG + E")
+                new KeyGesture(Key.E, ModifierKeys.Control)
             }
         );
     }

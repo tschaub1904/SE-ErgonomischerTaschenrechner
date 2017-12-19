@@ -7,12 +7,18 @@ using System.Windows.Controls;
 
 namespace ErgoCalculatorUI.Calculator
 {
+    /// <summary>
+    /// Eine Aufzählung für Winkelmaße
+    /// </summary>
     public enum AngleMode
     {
         DEG,
         RAD
     }
 
+    /// <summary>
+    /// Ein Modell, das Rechenzeichenketten speichert
+    /// </summary>
     public class CalculatorExpression
     {
         private string[] mCalculation;

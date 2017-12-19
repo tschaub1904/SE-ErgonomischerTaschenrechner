@@ -36,6 +36,7 @@
             <MenuItem Header="Aktionen">
                 <MenuItem Command="self:CustomCommands.CalculateCommand" />
                 <Separator/>
+                <MenuItem Command="self:CustomCommands.FocusCalculationText" />
                 <MenuItem Command="self:CustomCommands.FocusNumpad" />
                 <MenuItem Command="self:CustomCommands.FocusOperators" />
                 <MenuItem Command="self:CustomCommands.FocusTrigonometrics" />
@@ -53,8 +54,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Button AutomationProperties.Name="Gradmaß Bogenmaß Umschalter" x:Name="btnDegRad" Content="DEG" Click="btnDegRad_Click"></Button>
-                    <Button AutomationProperties.Name="Einstellungen" x:Name="btnSettings" Content="..." Grid.Column="1" Click="btnSettings_Click"></Button>
-                </Grid>
+                <!--<Button AutomationProperties.Name="Einstellungen" x:Name="btnSettings" Content="..." Grid.Column="1" Click="btnSettings_Click"></Button>-->
+            </Grid>
 
             <ListView x:Name="listViewCalculationHistory" AutomationProperties.Name="Rechenhistorie" DockPanel.Dock="Top">
             </ListView>
